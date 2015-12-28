@@ -1,0 +1,32 @@
+{
+  "name": "json-write-css",
+  "version": "1.0.0",
+  "description": "Plugin to write CSS through the JSON files.",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiago-soler/json-write-css.git"
+  },
+  "keywords": [
+    "JSON",
+    "CSS",
+    "JSON to CSS"
+  ],
+  "author": "Thiago Soler <thiagosoler@yahoo.com.br> (http://thiagosoler.com.br)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thiago-soler/json-write-css/issues"
+  },
+  "homepage": "https://github.com/thiago-soler/json-write-css#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.2.2",
+    "chai": "^3.4.1",
+    "cssmin": "^0.4.3",
+    "merge": "^1.2.0",
+    "mocha": "^2.3.4",
+    "postcss": "^5.0.13"
+  }
+}
