@@ -1,3 +1,10 @@
+REPORTER=list
+
 test:
-	./node_modules/.bin/mocha --reporter spec
+	clear
+	echo Starting test *********************************************************
+	./node_modules/.bin/mocha \
+	--reporter $(REPORTER) \
+	test/**/*.js
+
 .PHONY: test
