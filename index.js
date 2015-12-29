@@ -10,6 +10,52 @@
 		_fs_ = require("fs"),
   	_path_ = require("path");
 
+  function _readDirectories (srcPath) {
+
+    var result = _fs_.readdirSync(srcPath);
+
+    return result;
+
+  }
+
+  function _concatPath (srcPath, file) {
+
+    var result = _path_.join(srcPath, file);
+
+    return result;
+
+  }
+
+  function _checkFileFormat (file) {
+
+    var result = _fs_.statSync(file).isFile()
+
+    if (_path_.extname(file) !== '.json') {
+
+      console.error(' ');
+      console.error("ERROR: (%s) - %s", file, 'Existem arquivos que nao sao JSON neste diretorio. Os mesmos nao serao parseados.')
+      console.error(' ');
+
+      return false;
+
+    } else {
+
+      return result;
+
+    }
+
+  }
+
+  function _jsonMerge (file, fileMerge) {
+
+    var json = JSON.parse(_fs_.readFileSync(file));
+
+    fileMerge = _merge_.recursive(true, fileMerge, json);
+
+    return fileMerge;
+
+  }
+
 	function _readFiles (paths) {
 
 		var listDestPaths = Object.keys(paths);
@@ -21,40 +67,19 @@
 
       listSrcPaths.map(function (srcPath) {
 
-        files = _fs_.readdirSync(srcPath);
+        files = _readDirectories(srcPath);
 
         files.map(function (file) {
 
-          var result = _path_.join(srcPath, file);
-
-          return result;
+          return _concatPath(srcPath, file);
         
         }).filter(function (file) {
             
-          var result = _fs_.statSync(file).isFile()
-
-          if (_path_.extname(file) !== '.json') {
-
-            console.error(' ');
-            console.error("ERROR: (%s) - %s", file, 'Existem arquivos que nao sao JSON neste diretorio. Os mesmos nao serao parseados.')
-            console.error(' ');
-
-            return false;
-
-          } else {
-
-            return result;
-
-          }
-              
+          return _checkFileFormat(file);
 
         }).forEach(function (file) {
 
-          var json = JSON.parse(_fs_.readFileSync(file));
-
-          fileMerge = _merge_.recursive(true, fileMerge, json);
-
-          return fileMerge;
+          return fileMerge = _jsonMerge(file, fileMerge);
 
         });
 
@@ -91,7 +116,11 @@
 
 	}
 
-	$private.readFiles = _readFiles;
+  // $private._readDirectories = _readDirectories;
+  // $private._concatPath = _concatPath;
+  // $private._checkFileFormat = _checkFileFormat;
+  // $private._jsonMerge = _jsonMerge;
+  // $private._readFiles = _readFiles;
 
 	module.exports = {
 		

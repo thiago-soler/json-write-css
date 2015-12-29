@@ -2,7 +2,7 @@ var assert = require('chai').assert,
 	expect = require('chai').expect,
   settings = {
     files: {
-      'example/out/scene1.css': ['./example/src/exampleA', './example/src/exampleB'],
+      'example/out/scene1.css': ['./example/src/exampleA/', './example/src/exampleB'],
       'example/out/scene2.css': ['./example/src/exampleB']
     }
   },
