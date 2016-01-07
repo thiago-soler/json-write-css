@@ -16,14 +16,7 @@ describe('Estancia jsonWriteCss -', function() {
 
   });
 	
-  it('Verifica se objeto de escopo privado foi exposto para testes. Verifica formato esperado', function() {
-    
-    expect(jsonWriteCss).to.contains.keys('__testonly__');
-    expect(jsonWriteCss.__testonly__).to.be.an('object');
-    
-  });
-
-	// it('Verifica se objeto de escopo privado foi exposto para testes e se esta no formato esperado', function() {
+  // it('Verifica se objeto de escopo privado foi exposto para testes e se esta no formato esperado', function() {
     
  //    expect(jsonWriteCss).to.include.keys('__testsonly__');
  //    expect(jsonWriteCss).to.include.keys('test');

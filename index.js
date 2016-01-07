@@ -100,27 +100,15 @@
 
     });
 
-
-
 	}
 
 	function Core (settings) {
 
     var readFiles = _readFiles(settings.files);
 
-		this.test = function (a) {
-			var b = a + 1;
-
-			return b;
-		};
+		return readFiles;
 
 	}
-
-  // $private._readDirectories = _readDirectories;
-  // $private._concatPath = _concatPath;
-  // $private._checkFileFormat = _checkFileFormat;
-  // $private._jsonMerge = _jsonMerge;
-  // $private._readFiles = _readFiles;
 
 	module.exports = {
 		
@@ -128,8 +116,6 @@
 
 			var core = new Core(settings);
 
-			core.__testonly__ = $private;
-			
 			return core;
 
 		}

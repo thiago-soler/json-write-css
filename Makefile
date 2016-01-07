@@ -7,4 +7,10 @@ test:
 	--reporter $(REPORTER) \
 	test/**/*.js
 
-.PHONY: test
+istanbul:
+	./node_modules/.bin/istanbul \
+	cover --report html \
+	./node_modules/.bin/mocha -- -R spec \
+	test/index.js
+
+.PHONY: test istanbul

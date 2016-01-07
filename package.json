@@ -25,6 +25,7 @@
     "autoprefixer": "^6.2.2",
     "chai": "^3.4.1",
     "cssmin": "^0.4.3",
+    "istanbul": "^0.4.1",
     "merge": "^1.2.0",
     "mocha": "^2.3.4",
     "postcss": "^5.0.13"
