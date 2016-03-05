@@ -98,6 +98,8 @@
 
       resultFile.json = iterator(paths[dest]);
 
+      _fs_.writeFile(dest, resultFile.json);
+
     });
 
 	}
@@ -122,3 +124,22 @@
 	};
 
 })();
+
+var mock = {
+    settingsA: {
+      files: {
+        'example/out/scene1.css': ['./example/src/exampleA/', './example/src/exampleB'],
+        'example/out/scene2.css': ['./example/src/exampleB']
+      }
+    },
+    settingsB: {
+      files: {
+        'example/out/scene1.css': ['./exampleError/']
+      }
+    }
+  };
+
+
+var jsonWriteCss = require('./index.js').init(mock.settingsB);
+
+console.dir(jsonWriteCss);
