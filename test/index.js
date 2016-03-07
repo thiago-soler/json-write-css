@@ -9,6 +9,11 @@ var assert = require('chai').assert,
     },
     settingsB: {
       files: {
+        'example/out/scene1.css': ['./example/src/exampleC/']
+      }
+    },
+    settingsC: {
+      files: {
         'example/out/scene1.css': ['./exampleError/']
       }
     }
@@ -19,7 +24,7 @@ describe('jsonWriteCss', function() {
 
   jsonWriteCss = require('../index.js').init(mock.settingsA);
 	
-	it('Verifica formato esperado', function() {
+	it('Verifica o funcionamento do plugin caso os arquivos solicitados estejam no formato JSON esperado.', function() {
     
     expect(jsonWriteCss).to.be.an('object');
 
@@ -27,7 +32,15 @@ describe('jsonWriteCss', function() {
 
   jsonWriteCss = require('../index.js').init(mock.settingsB);
 
-  it('Verifica retorno em caso de nao encontrar o arquivo solicidado', function() {
+  it('Verifica se os arquivos solicitados sao um JSON, caso nao, finaliza o processo sem exceptions.', function() {
+    
+    expect(jsonWriteCss).to.be.an('object');
+
+  });
+
+  jsonWriteCss = require('../index.js').init(mock.settingsC);
+
+  it('Verifica se os arquivos solicitados existem, caso nao, finaliza o processo sem exceptions.', function() {
     
     expect(jsonWriteCss).to.be.an('object');
 

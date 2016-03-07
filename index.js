@@ -13,7 +13,7 @@
 
   function _readDirectories (srcPath) {
 
-    var result = {};
+    var result = {length: 0};
     
     try{
       
@@ -22,6 +22,8 @@
     } catch (err) {
 
       console.error(err);
+
+      return result;
 
     }
 
@@ -43,9 +45,7 @@
 
     if (_path_.extname(file) !== '.json') {
 
-      console.error(' ');
-      console.error("ERROR: (%s) - %s", file, 'Existem arquivos que nao sao JSON neste diretorio. Os mesmos nao serao parseados.')
-      console.error(' ');
+      console.error("ERROR: (%s) - %s", file, 'Existem arquivos que nao sao JSON neste diretorio. Os mesmos nao serao parseados.');
 
       return false;
 
@@ -80,19 +80,26 @@
 
         files = _readDirectories(srcPath);
 
-        // files.map(function (file) {
+        if (files.length !== 0) {
 
-        //   return _concatPath(srcPath, file);
-        
-        // }).filter(function (file) {
-            
-        //   return _checkFileFormat(file);
+          files.map(function (file) {
 
-        // }).forEach(function (file) {
+            return _concatPath(srcPath, file);
+          
+          }).filter(function (file) {
+              
+            return _checkFileFormat(file);
 
-        //   return fileMerge = _jsonMerge(file, fileMerge);
+          }).forEach(function (file) {
 
-        // });
+            return fileMerge = _jsonMerge(file, fileMerge);
+
+          });
+        } else {
+
+          return fileMerge;
+
+        }
 
       });
       
@@ -110,19 +117,11 @@
 
       resultFile.json = iterator(paths[dest]);
 
-      // resultFile.pathFolders = dest.replace( dest.split(/[\/]/g).pop(), '');
+      resultFile.pathFolders = dest.replace( dest.split(/[\/]/g).pop(), '');
 
-      // try{
-        
-      //   _mkdirp_.sync(resultFile.pathFolders);
+      _mkdirp_.sync(resultFile.pathFolders);
 
-      // } catch (err) {
-
-      //   console.error('Folder exist');
-
-      // }
-
-      // _fs_.writeFileSync(dest, resultFile.json);
+      _fs_.writeFileSync(dest, resultFile.json);
 
     });
 
@@ -166,5 +165,3 @@ var mock = {
 
 
 var jsonWriteCss = require('./index.js').init(mock.settingsA);
-
-console.dir(jsonWriteCss);
