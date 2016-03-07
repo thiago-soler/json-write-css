@@ -8,11 +8,22 @@
 		_cssmin_ = require('cssmin'),
 		$private = {},
 		_fs_ = require("fs"),
-  	_path_ = require("path");
+  	_path_ = require("path"),
+    _mkdirp_ = require('mkdirp');
 
   function _readDirectories (srcPath) {
 
-    var result = _fs_.readdirSync(srcPath);
+    var result = {};
+    
+    try{
+      
+      result = _fs_.readdirSync(srcPath);
+
+    } catch (err) {
+
+      console.error(err);
+
+    }
 
     return result;
 
@@ -69,19 +80,19 @@
 
         files = _readDirectories(srcPath);
 
-        files.map(function (file) {
+        // files.map(function (file) {
 
-          return _concatPath(srcPath, file);
+        //   return _concatPath(srcPath, file);
         
-        }).filter(function (file) {
+        // }).filter(function (file) {
             
-          return _checkFileFormat(file);
+        //   return _checkFileFormat(file);
 
-        }).forEach(function (file) {
+        // }).forEach(function (file) {
 
-          return fileMerge = _jsonMerge(file, fileMerge);
+        //   return fileMerge = _jsonMerge(file, fileMerge);
 
-        });
+        // });
 
       });
       
@@ -93,12 +104,25 @@
 
       var resultFile = {
             dest: dest,
-            json: {}
+            json: {},
+            pathFolders: ''
           };
 
       resultFile.json = iterator(paths[dest]);
 
-      _fs_.writeFile(dest, resultFile.json);
+      // resultFile.pathFolders = dest.replace( dest.split(/[\/]/g).pop(), '');
+
+      // try{
+        
+      //   _mkdirp_.sync(resultFile.pathFolders);
+
+      // } catch (err) {
+
+      //   console.error('Folder exist');
+
+      // }
+
+      // _fs_.writeFileSync(dest, resultFile.json);
 
     });
 
@@ -128,6 +152,7 @@
 var mock = {
     settingsA: {
       files: {
+
         'example/out/scene1.css': ['./example/src/exampleA/', './example/src/exampleB'],
         'example/out/scene2.css': ['./example/src/exampleB']
       }
@@ -140,6 +165,6 @@ var mock = {
   };
 
 
-var jsonWriteCss = require('./index.js').init(mock.settingsB);
+var jsonWriteCss = require('./index.js').init(mock.settingsA);
 
 console.dir(jsonWriteCss);
